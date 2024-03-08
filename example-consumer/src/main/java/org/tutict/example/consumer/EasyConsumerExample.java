@@ -7,7 +7,7 @@ import org.tutict.common.service.UserService;
 public class EasyConsumerExample {
 
     public static void main(String[] args) {
-        UserService userService = null;
+        UserService userService = new UserServiceProxy();
         User user  = new User();
         user.setName("tutict");
 
