@@ -9,6 +9,7 @@
         <module name="yu-rpc-easy1" />
         <module name="yu-rpc-easy2" />
         <module name="example-provider" />
+        <module name="yu-rpc-easy2 (1)" />
         <module name="example-consumer" />
       </profile>
     </annotationProcessing>
