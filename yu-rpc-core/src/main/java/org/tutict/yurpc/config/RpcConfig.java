@@ -1,6 +1,7 @@
 package org.tutict.yurpc.config;
 
 import lombok.Data;
+import org.tutict.yurpc.serializer.SerializerKeys;
 
 @Data
 public class RpcConfig {
@@ -11,4 +12,5 @@ public class RpcConfig {
     private Integer serverPort = 8080;
 
     private boolean mock = false;
+    private String serializer = SerializerKeys.JDK;
 }
