@@ -1,6 +1,7 @@
 package org.tutict.yurpc.proxy;
 
 import cn.hutool.http.HttpResponse;
+import cn.hutool.http.HttpRequest;
 import org.tutict.yurpc.model.RpcRequest;
 import org.tutict.yurpc.model.RpcResponse;
 import org.tutict.yurpc.serializer.JdkSerializer;
@@ -21,15 +22,17 @@ public class ServiceProxy implements InvocationHandler {
         try {
             byte[] bodyBytes = serializer.serialize(request);
             //TODO: 发送请求，等待响应
-            try (HttpResponse httpResponse = HttpResponse.post("http://localhost:8080").body(bodyBytes).execute()) {
+            try (HttpResponse httpResponse = HttpRequest.post("http://localhost:8080")
+                    .body(bodyBytes)
+                    .execute()) {
                 byte[] result = httpResponse.bodyBytes();
                 //TODO: 反序列化响应
                 RpcResponse rpcResponse = serializer.deserialize(result, RpcResponse.class);
                 return rpcResponse.getData();
-                }
-            } catch (Exception e) {
-                throw new RuntimeException(e);
             }
-            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

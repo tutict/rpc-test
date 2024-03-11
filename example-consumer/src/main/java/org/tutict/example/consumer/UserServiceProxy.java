@@ -9,7 +9,6 @@ import org.tutict.yurpc.serializer.Serializer;
 import org.tutict.yurpc.model.RpcRequest;
 import org.tutict.yurpc.model.RpcResponse;
 
-import java.io.IOException;
 
 public class UserServiceProxy implements UserService {
 
@@ -36,7 +35,7 @@ public class UserServiceProxy implements UserService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-            return null;
+        return null;
     }
 }
 
