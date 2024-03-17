@@ -1,0 +1,4 @@
+jdk=com.tutict.yurpc.serializer.JdkSerializer
+hessian=com.tutict.yurpc.serializer.HessianSerializer
+json=com.tutict.yurpc.serializer.JsonSerializer
+kryo=com.tutict.yurpc.serializer.KryoSerializer

@@ -1,5 +1,7 @@
 package org.tutict.yurpc.proxy;
 
+import org.tutict.yurpc.RpcApplication;
+
 import java.lang.reflect.Proxy;
 
 public class ServiceProxyFactory {

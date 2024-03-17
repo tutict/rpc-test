@@ -4,11 +4,13 @@ import io.vertx.core.Handler;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
+import org.tutict.yurpc.RpcApplication;
 import org.tutict.yurpc.model.RpcRequest;
 import org.tutict.yurpc.model.RpcResponse;
 import org.tutict.yurpc.registry.LocalRegistry;
 import org.tutict.yurpc.serializer.JdkSerializer;
 import org.tutict.yurpc.serializer.Serializer;
+import org.tutict.yurpc.serializer.SerializerFactory;
 
 import java.lang.reflect.Method;
 
@@ -17,7 +19,7 @@ public class HttpServerHandler implements Handler<HttpServerRequest> {
     @Override
     public void handle(HttpServerRequest request) {
 
-        final Serializer serializer = new JdkSerializer();
+        final Serializer serializer = SerializerFactory.getInstance(RpcApplication.getRpcConfig().getSerializer());
         System.out.println("Received request: " + request.method() + " " + request.uri());
 
         request.bodyHandler(body -> {

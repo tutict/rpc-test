@@ -7,6 +7,7 @@ import org.tutict.yurpc.model.RpcResponse;
 public class JsonSerializer implements Serializer {
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+
     @Override
     public <T> byte[] serialize(T object) throws Exception {
         return OBJECT_MAPPER.writeValueAsBytes(object);
@@ -14,27 +15,21 @@ public class JsonSerializer implements Serializer {
 
     @Override
     public <T> T deserialize(byte[] bytes, Class<T> clazz) throws Exception {
-
         T obj = OBJECT_MAPPER.readValue(bytes, clazz);
-        if (obj instanceof RpcResponse) {
-            return handleRequest((RpcRequest) obj, clazz);
-        }
         if (obj instanceof RpcRequest) {
-            return handleResponse((RpcResponse) obj, clazz);
+            return handleRequest((RpcRequest) obj, clazz);
         }
         return obj;
     }
 
     private <T> T handleRequest(RpcRequest request, Class<T> type) throws Exception {
-        Class<?>[] parameterTypes = request.getParamTypes();
+        Class<?>[] paramTypes = request.getParamTypes();
         Object[] args = request.getArgs();
-
-        for (int i = 0; i < parameterTypes.length; i++) {
-            Class<?> clazz = parameterTypes[i];
-
+        for (int i = 0; i < paramTypes.length; i++) {
+            Class<?> clazz = paramTypes[i];
             if (!clazz.isAssignableFrom(args[i].getClass())) {
-                byte[] argBytes = OBJECT_MAPPER.writeValueAsBytes(args[i]);
-                args[i] = OBJECT_MAPPER.readValue(argBytes, clazz);
+                byte[] bytes = OBJECT_MAPPER.writeValueAsBytes(args[i]);
+                args[i] = OBJECT_MAPPER.readValue(bytes, clazz);
             }
         }
         return type.cast(request);
